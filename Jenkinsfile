@@ -3,11 +3,7 @@ pipeline {
     
     tools {
         maven 'maven3'
-        jdk 'jdk17'
-    }
     
-    environment {
-        SCANNER_HOME= tool 'sonar-scanner'
     }
 
     stages {        
@@ -20,14 +16,6 @@ pipeline {
         stage('Test') {
             steps {
                 sh "mvn test"
-            }
-        }
-        
-        stage('SonarQube') {
-            steps {
-                withSonarQubeEnv('sonar') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Boardgame -Dsonar.projectKey=Boardgame -Dsonar.java.binaries=target/classes '''
-                }
             }
         }
         
